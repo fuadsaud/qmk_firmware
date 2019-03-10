@@ -28,6 +28,7 @@ enum user_layers {
 
 enum user_keycodes {
   M_WSS = SAFE_RANGE,
+  DENUS,
   D_MACOS,
   D_LINUX,
   STCH_EX
@@ -214,9 +215,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    *                 │     │ F1  │ F2  │ F3  │ F4  │ F5  │     │     │     │ F6  │ F7  │ F8  │ F9  │ F10 │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │  {  │  }  │  $  │     │     │     │     │     │  %  │  [  │  ]  │     │     │
+   *                 │     │     │  {  │  }  │  $  │  %  │     │     │     │  ^  │  &  │  (  │  )  │     │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │  ◌̀  │  ◌̂  │  ◌̧  │  ◌́  │  ◌̃  │TAB ←│BRIG+│TAB →│  \  │  |  │  (  │  )  │  {  │  }  │
+   *                 │     │  ◌̀  │  ◌̂  │  ◌̧  │  ◌́  │  ◌̃  │TAB ←│BRIG+│TAB →│  |  │  {  │  }  │  [  │  ]  │  \  │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │     │     │     │     │     │     │GUI ←│BRIG-│GUI →│     │     │     │     │     │     │
    *                 ├─────┼─────┼─────┼─────╆━━━━━┪─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -227,16 +228,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_LOWER_L] = {
     { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F20  , _______ },
-    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , _______ , _______ , _______ , _______ , _______ , KC_PERC , KC_LBRC , KC_RBRC , _______ , _______ },
-    { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , L_GLEFT , _______ , L_GRIGH , KC_BSLS , KC_PIPE , KC_LPRN , KC_RPRN , KC_LCBR , KC_RCBR },
-    { _______ , _______ , _______ , _______ , _______ , _______ , L_BACK  , _______ , L_FRWD  , _______ , _______ , _______ , _______ , _______ , _______ },
+    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
+    { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , L_GLEFT , _______ , L_GRIGH , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC , KC_BSLS },
+    { _______ , _______ , _______ , _______ , _______ , _______ , L_BACK  , _______ , L_FRWD  , _______ , DENUS   , _______ , _______ , _______ , _______ },
     { _______ , _______ , _______ , _______ , _______ , _______ , KC_MPRV , _______ , KC_MNXT , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
 
   [LAYER_LOWER_M] = {
     { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F20  , _______ },
-    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , _______ , _______ , _______ , _______ , _______ , KC_PERC , KC_LBRC , KC_RBRC , _______ , _______ },
-    { _______ , M_GRAVE , M_CIRCU , M_CEDIL , M_ACUTE , M_TILDE , M_GLEFT , _______ , M_GRIGH , KC_EQL  , KC_MINS , KC_LPRN , KC_RPRN , KC_LCBR , KC_RCBR },
+    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
+    { _______ , M_GRAVE , M_CIRCU , M_CEDIL , M_ACUTE , M_TILDE , M_GLEFT , _______ , M_GRIGH , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC , KC_BSLS },
     { _______ , _______ , _______ , _______ , _______ , _______ , M_BACK  , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ },
     { _______ , _______ , _______ , _______ , _______ , _______ , KC_MRWD , _______ , KC_MFFD , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
@@ -335,6 +336,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_DOWN(X_LSHIFT) SS_TAP(X_4) SS_UP(X_LGUI) SS_UP(X_LSHIFT));
         _delay_ms(100);
         SEND_STRING(SS_TAP(X_SPACE));
+      }
+      return false;
+
+    case DENUS:
+      if (record->event.pressed) {
+        SEND_STRING(":denunsia: ");
       }
       return false;
 
