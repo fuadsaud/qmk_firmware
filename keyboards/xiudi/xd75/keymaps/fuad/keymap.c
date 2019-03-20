@@ -175,8 +175,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { M_LOWER  , KC_LCTL , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , KC_MPLY , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , KC_LEAD , M_META  },
   },
 
-
-
   /* RAISE LAYER
    *
    *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -186,9 +184,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │     │     │MON ←│MON ↓│MON ↑│MON →│TAB ←│     │TAB →│  ←  │  ↓  │  ↑  │  →  │     │ WSS │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │     │     │     │     │GUI ←│BRIG+│GUI →│     │     │     │MOU 1│MOU ↑│MOU 2│
+   *                 │     │     │     │TAB ←│TAB →│     │GUI ←│BRIG+│GUI →│     │TAB ←│TAB →│     │     │     │
    *                 ┢━━━━━╅─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────╆━━━━━┪─────┼─────┼─────┼─────┤
-   *                 ┃|||||┃     │     │     │     │LEAD │♪ PRV│BRIG-│♪ NXT│     ┃|||||┃     │MOU ←│MOU ↓│MOU →│
+   *                 ┃|||||┃     │     │     │     │LEAD │♪ PRV│BRIG-│♪ NXT│     ┃|||||┃     │     │     │     │
    *                 ┗━━━━━┹─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┺━━━━━┛─────┴─────┴─────┴─────┘
    *
    */
@@ -197,16 +195,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______ , KC_F11  , KC_F12    , KC_F13    , KC_F14  , KC_F15  , _______ , _______ , _______ , KC_F16  , KC_F17  , KC_F18  , KC_F19   , KC_F20  , L_SS    },
     { _______ , L_WIN_L , L_WIN_RST , L_WIN_MAX , L_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LALT , L_WIN_B , L_WIN_F  , _______ , L_WSS   },
     { _______ , L_MON_L , L_MON_D   , L_MON_U   , L_MON_R , _______ , L_GLEFT , _______ , L_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , L_SSS   },
-    { _______ , _______ , _______   , _______   , _______ , _______ , L_BACK  , ___x___ , L_FRWD  , _______ , _______ , KC_BTN1 , KC_MS_U  , KC_BTN2 , KC_WH_U },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MPRV , ___x___ , KC_MNXT , KC_DEL  , _______ , KC_MS_L , KC_MS_D  , KC_MS_R , KC_WH_D },
+    { _______ , _______ , _______   , L_GLEFT   , L_GRIGH , _______ , L_BACK  , ___x___ , L_FRWD  , _______ , L_BACK  , L_FRWD  , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MPRV , ___x___ , KC_MNXT , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
   [LAYER_RAISE_M] = {
     { _______ , KC_F11  , KC_F12    , KC_F13    , KC_F14  , KC_F15  , _______ , _______ , _______ , KC_F16  , KC_F17  , KC_F18  , KC_F19   , KC_F20  , M_SS    },
-    { _______ , M_WIN_L , M_WIN_RST , M_WIN_MAX , M_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LCMD , L_WIN_B , L_WIN_F  , _______ , M_WSS   },
+    { _______ , M_WIN_L , M_WIN_RST , M_WIN_MAX , M_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LCMD , M_WIN_B , M_WIN_F  , _______ , M_WSS   },
     { _______ , M_MON_L , M_MON_D   , M_MON_U   , M_MON_R , _______ , M_GLEFT , _______ , M_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , M_SSS   },
-    { _______ , _______ , _______   , _______   , _______ , _______ , M_BACK  , KC_PAUS , M_FRWD  , _______ , _______ , KC_BTN1 , KC_MS_U  , KC_BTN2 , KC_WH_U },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MRWD , KC_SLCK , KC_MFFD , _______ , _______ , KC_MS_L , KC_MS_D  , KC_MS_R , KC_WH_D },
+    { _______ , _______ , _______   , M_GLEFT   , M_GRIGH , _______ , M_BACK  , KC_PAUS , M_FRWD  , _______ , M_BACK  , M_FRWD  , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MRWD , KC_SLCK , KC_MFFD , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
 
