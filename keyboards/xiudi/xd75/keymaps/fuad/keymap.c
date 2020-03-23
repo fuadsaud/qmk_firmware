@@ -116,8 +116,8 @@ enum user_keycodes {
 #define L_WIN_RST LGUI(KC_DOWN)
 #define L_WIN_L LGUI(KC_LEFT)
 #define L_WIN_R LGUI(KC_RIGHT)
-#define M_WIN_MAX LCMD(LCTL(KC_F))
-#define M_WIN_RST LCMD(LCTL(KC_F))
+#define M_WIN_MAX LCMD(LALT(KC_F))
+#define M_WIN_RST LCTL(LALT(KC_BSPC))
 #define M_WIN_L LCMD(LALT(KC_LEFT))
 #define M_WIN_R LCMD(LALT(KC_RIGHT))
 
