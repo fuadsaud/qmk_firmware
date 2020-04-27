@@ -42,10 +42,6 @@ enum user_keycodes {
 #define L_RAISE LT(LAYER_RAISE_L, KC_EQUAL)
 #define M_LOWER LT(LAYER_LOWER_M, KC_UNDERSCORE)
 #define M_RAISE LT(LAYER_RAISE_M, KC_EQUAL)
-/* #define L_LOWER LT(LAYER_LOWER_L, KC_LBRC) */
-/* #define L_RAISE LT(LAYER_RAISE_L, KC_RBRC) */
-/* #define M_LOWER LT(LAYER_LOWER_M, KC_LBRC) */
-/* #define M_RAISE LT(LAYER_RAISE_M, KC_RBRC) */
 #define L_META  MO(LAYER_META)
 #define M_META  MO(LAYER_META)
 
@@ -56,7 +52,7 @@ enum user_keycodes {
 
 #define L_C_BRO CTL_T(KC_LBRC)
 #define M_C_BRO CMD_T(KC_LBRC)
-#define HYP_BRC ALL_T(KC_RBRC)
+#define HYP_BRC HYPR_T(KC_RBRC)
 
 // misc
 #define L_SS  KC_PSCREEN
@@ -89,6 +85,15 @@ enum user_keycodes {
 #define M_VOLD KC__VOLDOWN
 #define M_VOLU KC__VOLUP
 #define M_MUTE KC__MUTE
+
+#define M_MPLY KC_MPLY
+#define M_MNXT KC_MFFD
+#define M_MPRV KC_MRWD
+#define L_MPLY KC_MPLY
+#define L_MNXT KC_MNXT
+#define L_MPRV KC_MPRV
+
+#define PTT LGUI(KC_BSLS)
 
 // diacritics
 #define L_GRAVE RALT(KC_GRV)
@@ -139,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │  ⇧  │  Z  │  X  │  C  │  V  │  B  │  ↘  │ MUT │  ⇟  │  N  │  M  │  ,  │  .  │  /  │  ⇧  │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ↓  │ CTL │  ⌥  │  ⌘  │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │  ⌘  │  ⌥  │HYPER│ MET │
+   *                 │  ↓  │ CTL │  ⌥  │  ⌘  │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
    *
    */
@@ -155,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │SHIFT│  Z  │  X  │  C  │  V  │  B  │ END │ MUT │PGDN │  N  │  M  │  ,  │  .  │  /  │SHIFT│
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ↓  │SUPER│ ALT │ CTL │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ CTL │ ALT │HYPER│ MET │
+   *                 │  ↓  │SUPER│ ALT │ CTL │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
    *
    */
@@ -165,14 +170,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , L_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , L_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , L_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { L_LOWER  , KC_LGUI , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , KC_MPLY , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , KC_LEAD , L_META  },
+    { L_LOWER  , KC_LGUI , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , L_MPLY  , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , PTT     , L_META  },
   },
-[LAYER_QWERTY_M] = {
+
+  [LAYER_QWERTY_M] = {
     { KC_GRV   , KC_1    , KC_2    , KC_3    , KC_4    , KC_5  , KC_MINS , KC_ESC  , KC_EQL  , KC_6  , KC_7    , KC_8    , KC_9    , KC_0    , KC_BSLS },
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , M_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , M_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , M_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { M_LOWER  , KC_LCTL , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , KC_MPLY , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , KC_LEAD , M_META  },
+    { M_LOWER  , KC_LCTL , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , M_MPLY  , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , PTT     , M_META  },
   },
 
   /* RAISE LAYER
@@ -196,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______ , L_WIN_L , L_WIN_RST , L_WIN_MAX , L_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LALT , L_WIN_B , L_WIN_F  , _______ , L_WSS   },
     { _______ , L_MON_L , L_MON_D   , L_MON_U   , L_MON_R , _______ , L_GLEFT , _______ , L_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , L_SSS   },
     { _______ , _______ , _______   , L_GLEFT   , L_GRIGH , _______ , L_BACK  , ___x___ , L_FRWD  , _______ , L_BACK  , L_FRWD  , _______  , _______ , _______ },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MPRV , ___x___ , KC_MNXT , _______ , _______ , _______ , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , L_MPRV  , _______ , L_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
   [LAYER_RAISE_M] = {
@@ -204,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______ , M_WIN_L , M_WIN_RST , M_WIN_MAX , M_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LCMD , M_WIN_B , M_WIN_F  , _______ , M_WSS   },
     { _______ , M_MON_L , M_MON_D   , M_MON_U   , M_MON_R , _______ , M_GLEFT , _______ , M_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , M_SSS   },
     { _______ , _______ , _______   , M_GLEFT   , M_GRIGH , _______ , M_BACK  , KC_PAUS , M_FRWD  , _______ , M_BACK  , M_FRWD  , _______  , _______ , _______ },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , KC_MRWD , KC_SLCK , KC_MFFD , _______ , _______ , _______ , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , M_MPRV  , KC_SLCK , M_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
 
@@ -225,11 +231,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [LAYER_LOWER_L] = {
-    { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F20  , _______ },
+    { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , _______ },
     { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
     { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , L_GLEFT , _______ , L_GRIGH , KC_BSLS , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC },
     { _______ , _______ , _______ , _______ , _______ , _______ , L_BACK  , _______ , L_FRWD  , _______ , DENUS   , KC_LBRC , KC_RBRC , _______ , _______ },
-    { _______ , _______ , _______ , _______ , _______ , _______ , KC_MPRV , _______ , KC_MNXT , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
+    { _______ , _______ , _______ , _______ , _______ , _______ , L_MPRV  , _______ , L_MNXT  , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
 
   [LAYER_LOWER_M] = {
@@ -237,7 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
     { _______ , M_GRAVE , M_CIRCU , M_CEDIL , M_ACUTE , M_TILDE , M_GLEFT , _______ , M_GRIGH , KC_BSLS , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC },
     { _______ , _______ , _______ , _______ , _______ , _______ , M_BACK  , _______ , _______ , _______ , DENUS   , KC_LBRC , KC_RBRC , _______ , _______ },
-    { _______ , _______ , _______ , _______ , _______ , _______ , KC_MRWD , _______ , KC_MFFD , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
+    { _______ , _______ , _______ , _______ , _______ , _______ , M_MPRV  , _______ , M_MNXT  , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
 
 
