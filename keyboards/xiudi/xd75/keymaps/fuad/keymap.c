@@ -89,9 +89,9 @@ enum user_keycodes {
 #define M_MPLY KC_MPLY
 #define M_MNXT KC_MFFD
 #define M_MPRV KC_MRWD
-#define L_MPLY KC_MPLY
-#define L_MNXT KC_MNXT
-#define L_MPRV KC_MPRV
+#define L_MPLY LALT(KC_MPLY)
+#define L_MNXT LALT(KC_MNXT)
+#define L_MPRV LALT(KC_MPRV)
 
 #define PTT LGUI(KC_BSLS)
 
