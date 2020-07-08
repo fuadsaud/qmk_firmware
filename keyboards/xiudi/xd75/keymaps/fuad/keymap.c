@@ -48,9 +48,15 @@ enum user_keycodes {
 #define L_ENTER LGUI_T(KC_ENT)
 #define M_ENTER LCMD_T(KC_ENT)
 
-#define L_C_BRO CTL_T(KC_LBRC)
-#define M_C_BRO CMD_T(KC_LBRC)
+#define L_C_BRO LCTL_T(KC_LBRC)
+#define M_C_BRO LCMD_T(KC_LBRC)
 #define HYP_BRC HYPR_T(KC_RBRC)
+
+// app launcher
+#define L_LNCHR KC_LGUI
+#define L_G_LNC L_LNCHR
+#define M_LNCHR LCMD(KC_SPC)
+#define M_C_LNC LCTL_T(M_LNCHR)
 
 // misc
 #define L_SS  KC_PSCREEN
@@ -142,9 +148,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │  ⇧  │  Z  │  X  │  C  │  V  │  B  │  ↘  │ MUT │  ⇟  │  N  │  M  │  ,  │  .  │  /  │  ⇧  │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ↓  │ CTL │  ⌥  │  ⌘  │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
+   *                 │LEADR│ CTL │  ⌥  │  ⌘  │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-   *
+   *                          |
+   *                 Tap for app launcher
    */
 
   /* LINUX QWERTY LAYER
@@ -158,9 +165,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │SHIFT│  Z  │  X  │  C  │  V  │  B  │ END │ MUT │PGDN │  N  │  M  │  ,  │  .  │  /  │SHIFT│
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ↓  │SUPER│ ALT │ CTL │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
+   *                 │LEADR│SUPER│ ALT │ CTL │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-   *
+   *                          |
+   *                 Tap for app launcher
    */
 
   [LAYER_QWERTY_L] = {
@@ -168,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , L_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , L_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , L_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { L_LOWER  , KC_LGUI , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , L_MPLY  , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , PTT     , L_META  },
+    { KC_LEAD  , L_G_LNC , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , L_MPLY  , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , PTT     , L_META  },
   },
 
   [LAYER_QWERTY_M] = {
@@ -176,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , M_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , M_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , M_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { M_LOWER  , KC_LCTL , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , M_MPLY  , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , PTT     , M_META  },
+    { KC_LEAD  , M_C_LNC , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , M_MPLY  , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , PTT     , M_META  },
   },
 
   /* RAISE LAYER
