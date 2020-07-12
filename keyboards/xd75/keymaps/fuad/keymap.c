@@ -27,7 +27,9 @@ enum user_layers {
 
 enum user_keycodes {
   M_WSS = SAFE_RANGE,
-  DENUS,
+  X_DENUS,
+  X_PMAIL,
+  X_WMAIL,
   D_MACOS,
   D_LINUX,
 };
@@ -40,8 +42,7 @@ enum user_keycodes {
 #define L_RAISE LT(LAYER_RAISE_L, KC_EQUAL)
 #define M_LOWER LT(LAYER_LOWER_M, KC_UNDERSCORE)
 #define M_RAISE LT(LAYER_RAISE_M, KC_EQUAL)
-#define L_META  MO(LAYER_META)
-#define M_META  MO(LAYER_META)
+#define META MO(LAYER_META)
 
 // mod-tap
 #define LCTL_ESC LCTL_T(KC_ESC)
@@ -56,7 +57,7 @@ enum user_keycodes {
 #define L_LNCHR KC_LGUI
 #define L_G_LNC L_LNCHR
 #define M_LNCHR LCMD(KC_SPC)
-#define M_C_LNC LCTL_T(M_LNCHR)
+#define M_C_LNC LCMD_T(M_LNCHR)
 
 // misc
 #define L_SS  KC_PSCREEN
@@ -97,7 +98,8 @@ enum user_keycodes {
 #define L_MNXT LALT(KC_MNXT)
 #define L_MPRV LALT(KC_MPRV)
 
-#define PTT LGUI(KC_BSLS)
+#define L_PTT LGUI(KC_BSLS)
+#define M_PTT ___x___
 
 // diacritics
 #define L_GRAVE RALT(KC_GRV)
@@ -137,23 +139,6 @@ enum user_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* MACOS QWERTY LAYER
-   *
-   *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-   *                 │  `  │  1  │  2  │  3  │  4  │  5  │  -  │ ESC │  =  │  6  │  7  │  8  │  9  │  0  │  \  │
-   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ⇥  │  Q  │  W  │  E  │  R  │  T  │  {  │  \  │  }  │  Y  │  U  │  I  │  O  │  P  │  '  │
-   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *  Tap for ESC -- │  ⌃  │  A  │  S  │  D  │  F  │  G  │  ↖  │LOCK │  ⇞  │  H  │  J  │  K  │  L  │  ;  │  ⌘  │ -- Tap for ↵
-   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │  ⇧  │  Z  │  X  │  C  │  V  │  B  │  ↘  │ MUT │  ⇟  │  N  │  M  │  ,  │  .  │  /  │  ⇧  │
-   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │LEADR│ CTL │  ⌥  │  ⌘  │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
-   *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-   *                          |
-   *                 Tap for app launcher
-   */
-
   /* LINUX QWERTY LAYER
    *
    *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -161,30 +146,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │ TAB │  Q  │  W  │  E  │  R  │  T  │  {  │  \  │  }  │  Y  │  U  │  I  │  O  │  P  │  '  │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *  Tap for ESC -- │ CTL │  A  │  S  │  D  │  F  │  G  │HOME │LOCK │PGUP │  H  │  J  │  K  │  L  │  ;  │ ALT │ -- Tap for ENTER
+   *  Tap for ESC -- │ CTL │  A  │  S  │  D  │  F  │  G  │HOME │LOCK │PGUP │  H  │  J  │  K  │  L  │  ;  │ ALT │ -- Tap for ↵
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │SHIFT│  Z  │  X  │  C  │  V  │  B  │ END │ MUT │PGDN │  N  │  M  │  ,  │  .  │  /  │SHIFT│
+   *    Tap for ( ---│SHIFT│  Z  │  X  │  C  │  V  │  B  │ END │ MUT │PGDN │  N  │  M  │  ,  │  .  │  /  │SHIFT│--- Tap for )
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │LEADR│SUPER│ ALT │ CTL │  ↓  │  ␣  │VOL -│  ▶  │VOL +│  ⌫  │  ↑  │ HYP │LEADR│ PTT │ MET │
+   *                 │LEADR│SUPER│ ALT │ CTL │LOWER│  ␣  │VOL -│  ▶  │VOL +│  ⌫  │RAISE│ HYP │LEADR│ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+   *                          |           |     |                                   |     |
+   *                          |           |  Tap for -                         Tap for =  |
+   *                          |           |                                               |
+   *                          |      Tap for [                                       Tap for ]
+   *                          |
+   *                 Tap for app launcher
+   */
+
+  /* MACOS QWERTY LAYER
+   *
+   *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+   *                 │  `  │  1  │  2  │  3  │  4  │  5  │  -  │ ESC │  =  │  6  │  7  │  8  │  9  │  0  │  \  │
+   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+   *                 │  ⇥  │  Q  │  W  │  E  │  R  │  T  │  {  │  \  │  }  │  Y  │  U  │  I  │  O  │  P  │  '  │
+   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+   *  Tap for ESC ---│  ⌃  │  A  │  S  │  D  │  F  │  G  │  ↖  │LOCK │  ⇞  │  H  │  J  │  K  │  L  │  ;  │  ⌘  │--- Tap for ↵
+   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+   *    Tap for ( ---│  ⇧  │  Z  │  X  │  C  │  V  │  B  │  ↘  │ MUT │  ⇟  │  N  │  M  │  ,  │  .  │  /  │  ⇧  │--- Tap for )
+   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+   *                 │LEADR│  ⌘  │  ⌥  │  ⌘  │LOWER│  ␣  │VOL -│  ▶  │VOL +│  ⌫  │RAISE│ HYP │LEADR│ PTT │ MET │
+   *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+   *                          |           |     |                                   |     |
+   *                          |           |  Tap for -                         Tap for =  |
+   *                          |           |                                               |
+   *                          |      Tap for [                                       Tap for ]
    *                          |
    *                 Tap for app launcher
    */
 
   [LAYER_QWERTY_L] = {
-    { KC_GRV   , KC_1    , KC_2    , KC_3    , KC_4    , KC_5  , KC_MINS , KC_ESC  , KC_EQL  , KC_6  , KC_7    , KC_8    , KC_9    , KC_0    , KC_BSLS },
+    { KC_GRV   , KC_1    , KC_2    , KC_3    , KC_4    , KC_5  , KC_MINS , KC_ESC  , KC_EQL  , KC_6  , KC_7    , KC_8    , KC_P9   , KC_P0   , KC_BSLS },
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , L_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , L_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , L_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { KC_LEAD  , L_G_LNC , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , L_MPLY  , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , PTT     , L_META  },
+    { KC_LEAD  , L_G_LNC , KC_LALT , L_C_BRO , L_LOWER , L_SPC , L_VOLD  , L_MPLY  , L_VOLU  , L_BSP , L_RAISE , HYP_BRC , KC_LEAD , L_PTT   , META    },
   },
 
   [LAYER_QWERTY_M] = {
-    { KC_GRV   , KC_1    , KC_2    , KC_3    , KC_4    , KC_5  , KC_MINS , KC_ESC  , KC_EQL  , KC_6  , KC_7    , KC_8    , KC_9    , KC_0    , KC_BSLS },
+    { KC_GRV   , KC_1    , KC_2    , KC_3    , KC_4    , KC_5  , KC_MINS , KC_ESC  , KC_EQL  , KC_6  , KC_7    , KC_8    , KC_P9   , KC_P0   , KC_BSLS },
     { KC_TAB   , KC_Q    , KC_W    , KC_E    , KC_R    , KC_T  , KC_LBRC , KC_BSLS , KC_RBRC , KC_Y  , KC_U    , KC_I    , KC_O    , KC_P    , KC_QUOT },
     { LCTL_ESC , KC_A    , KC_S    , KC_D    , KC_F    , KC_G  , KC_HOME , M_LOCK  , KC_PGUP , KC_H  , KC_J    , KC_K    , KC_L    , KC_SCLN , M_ENTER },
     { KC_LSPO  , KC_Z    , KC_X    , KC_C    , KC_V    , KC_B  , KC_END  , M_MUTE  , KC_PGDN , KC_N  , KC_M    , KC_COMM , KC_DOT  , KC_SLSH , KC_RSPC },
-    { KC_LEAD  , M_C_LNC , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , M_MPLY  , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , PTT     , M_META  },
+    { KC_LEAD  , M_C_LNC , KC_LALT , M_C_BRO , M_LOWER , M_SPC , M_VOLD  , M_MPLY  , M_VOLU  , M_BSP , M_RAISE , HYP_BRC , KC_LEAD , M_PTT   , META    },
   },
 
   /* RAISE LAYER
@@ -192,31 +202,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    *                 │     │ F11 │ F12 │ F13 │ F14 │ F15 │     │     │     │ F16 │ F17 │ F18 │ F19 │ F20 │ SS  │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │WIN ←│WIN ↓│WIN ↑│WIN →│     │     │     │     │W SWI│WSW P│WSW N│     │ SSS │
+   *                 │     │     │WIN ←│WIN ↓│WIN ↑│WIN →│     │     │     │     │W SWI│WSW P│WSW N│ WSS │ SSS │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │MON ←│MON ↓│MON ↑│MON →│TAB ←│     │TAB →│  ←  │  ↓  │  ↑  │  →  │     │ WSS │
+   *                 │     │     │MON ←│MON ↓│MON ↑│MON →│TAB ←│     │TAB →│  ←  │  ↓  │  ↑  │  →  │     │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │     │     │     │TAB ←│TAB →│     │GUI ←│BRIG+│GUI →│     │TAB ←│TAB →│     │     │     │
-   *                 ┢━━━━━╅─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────╆━━━━━┪─────┼─────┼─────┼─────┤
-   *                 ┃|||||┃     │     │     │     │LEAD │♪ PRV│BRIG-│♪ NXT│     ┃|||||┃     │     │     │     │
-   *                 ┗━━━━━┹─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┺━━━━━┛─────┴─────┴─────┴─────┘
+   *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────╆━━━━━┪─────┼─────┼─────┼─────┤
+   *                 │     │     │     │     │     │LNCHR│♪ PRV│BRIG-│♪ NXT│     ┃|||||┃     │     │     │     │
+   *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┺━━━━━┛─────┴─────┴─────┴─────┘
    *
    */
 
   [LAYER_RAISE_L] = {
     { _______ , KC_F11  , KC_F12    , KC_F13    , KC_F14  , KC_F15  , _______ , _______ , _______ , KC_F16  , KC_F17  , KC_F18  , KC_F19   , KC_F20  , L_SS    },
-    { _______ , L_WIN_L , L_WIN_RST , L_WIN_MAX , L_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LALT , L_WIN_B , L_WIN_F  , _______ , L_WSS   },
-    { _______ , L_MON_L , L_MON_D   , L_MON_U   , L_MON_R , _______ , L_GLEFT , _______ , L_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , L_SSS   },
+    { _______ , L_WIN_L , L_WIN_RST , L_WIN_MAX , L_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LALT , L_WIN_B , L_WIN_F  , L_SSS   , L_WSS   },
+    { _______ , L_MON_L , L_MON_D   , L_MON_U   , L_MON_R , _______ , L_GLEFT , _______ , L_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , _______ },
     { _______ , _______ , _______   , L_GLEFT   , L_GRIGH , _______ , L_BACK  , ___x___ , L_FRWD  , _______ , L_BACK  , L_FRWD  , _______  , _______ , _______ },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , L_MPRV  , _______ , L_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , L_LNCHR , L_MPRV  , _______ , L_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
   [LAYER_RAISE_M] = {
     { _______ , KC_F11  , KC_F12    , KC_F13    , KC_F14  , KC_F15  , _______ , _______ , _______ , KC_F16  , KC_F17  , KC_F18  , KC_F19   , KC_F20  , M_SS    },
-    { _______ , M_WIN_L , M_WIN_RST , M_WIN_MAX , M_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LCMD , M_WIN_B , M_WIN_F  , _______ , M_WSS   },
-    { _______ , M_MON_L , M_MON_D   , M_MON_U   , M_MON_R , _______ , M_GLEFT , _______ , M_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , M_SSS   },
+    { _______ , M_WIN_L , M_WIN_RST , M_WIN_MAX , M_WIN_R , _______ , _______ , _______ , _______ , _______ , KC_LCMD , M_WIN_B , M_WIN_F  , M_SSS   , M_WSS   },
+    { _______ , M_MON_L , M_MON_D   , M_MON_U   , M_MON_R , _______ , M_GLEFT , _______ , M_GRIGH , KC_LEFT , KC_DOWN , KC_UP   , KC_RIGHT , _______ , _______ },
     { _______ , _______ , _______   , M_GLEFT   , M_GRIGH , _______ , M_BACK  , KC_PAUS , M_FRWD  , _______ , M_BACK  , M_FRWD  , _______  , _______ , _______ },
-    { _______ , _______ , _______   , _______   , _______ , KC_LEAD , M_MPRV  , KC_SLCK , M_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
+    { _______ , _______ , _______   , _______   , _______ , M_LNCHR , M_MPRV  , KC_SLCK , M_MNXT  , _______ , _______ , _______ , _______  , _______ , _______ },
   },
 
 
@@ -225,11 +235,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    *                 │     │ F1  │ F2  │ F3  │ F4  │ F5  │     │     │     │ F6  │ F7  │ F8  │ F9  │ F10 │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │  {  │  }  │  $  │  %  │     │     │     │  ^  │  &  │  (  │  )  │     │     │
+   *                 │     │  !  │  @  │  #  │  $  │  %  │     │     │     │  ^  │  &  │  *  │  (  │  )  │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │  ◌̀  │  ◌̂  │  ◌̧  │  ◌́  │  ◌̃  │TAB ←│BRIG+│TAB →│  \  │  |  │  {  │  }  │  [  │  ]  │
+   *                 │     │  ◌̀  │  ◌̂  │  ◌̧  │  ◌́  │  ◌̃  │TAB ←│BRIG+│TAB →│     │  {  │  }  │     │  |  │     │
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │     │     │     │     │     │     │GUI ←│BRIG-│GUI →│     │     │  [  │  ]  │     │     │
+   *                 │     │DENUS│     │     │PMAIL│WMAIL│GUI ←│BRIG-│GUI →│     │  (  │  )  │     │  \  │     │
    *                 ├─────┼─────┼─────┼─────╆━━━━━┪─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                 │     │     │     │     ┃|||||┃     │     │     │     │  ⌦  │     │     │     │     │     │
    *                 └─────┴─────┴─────┴─────┺━━━━━┛─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
@@ -238,17 +248,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_LOWER_L] = {
     { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , _______ },
-    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
-    { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , L_GLEFT , _______ , L_GRIGH , KC_BSLS , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC },
-    { _______ , _______ , _______ , _______ , _______ , _______ , L_BACK  , _______ , L_FRWD  , _______ , DENUS   , KC_LBRC , KC_RBRC , _______ , _______ },
+    { KC_TILD , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , _______ },
+    { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , L_GLEFT , _______ , L_GRIGH , _______ , KC_PIPE , KC_LCBR , _______ , KC_PIPE , _______ },
+    { _______ , X_DENUS , _______ , _______ , X_PMAIL , X_WMAIL , L_BACK  , _______ , L_FRWD  , _______ , KC_LPRN , KC_RPRN , _______ , KC_BSLS , _______ },
     { _______ , _______ , _______ , _______ , _______ , _______ , L_MPRV  , _______ , L_MNXT  , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
 
   [LAYER_LOWER_M] = {
-    { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F20  , _______ },
-    { _______ , _______ , KC_LCBR , KC_RCBR , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_LPRN , KC_RPRN , _______ , _______ },
-    { _______ , M_GRAVE , M_CIRCU , M_CEDIL , M_ACUTE , M_TILDE , M_GLEFT , _______ , M_GRIGH , KC_BSLS , KC_PIPE , KC_LCBR , KC_RCBR , KC_LBRC , KC_RBRC },
-    { _______ , _______ , _______ , _______ , _______ , _______ , M_BACK  , _______ , _______ , _______ , DENUS   , KC_LBRC , KC_RBRC , _______ , _______ },
+    { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , _______ },
+    { KC_TILD , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , _______ },
+    { _______ , L_GRAVE , L_CIRCU , L_CEDIL , L_ACUTE , L_TILDE , M_GLEFT , _______ , M_GRIGH , _______ , KC_PIPE , KC_LCBR , _______ , KC_PIPE , _______ },
+    { _______ , X_DENUS , _______ , _______ , X_PMAIL , X_WMAIL , M_BACK  , _______ , _______ , _______ , KC_LPRN , KC_RPRN , _______ , KC_BSLS , _______ },
     { _______ , _______ , _______ , _______ , _______ , _______ , M_MPRV  , _______ , M_MNXT  , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
 
@@ -325,9 +335,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case DENUS:
+    case X_DENUS:
       if (record->event.pressed) {
         SEND_STRING(":denunsia: ");
+      }
+      return false;
+
+    case X_PMAIL:
+      if (record->event.pressed) {
+        SEND_STRING("fuadfsaud@gmail.com");
+      }
+      return false;
+
+    case X_WMAIL:
+      if (record->event.pressed) {
+        SEND_STRING("fuad.saud@nubank.com.br");
       }
       return false;
 
