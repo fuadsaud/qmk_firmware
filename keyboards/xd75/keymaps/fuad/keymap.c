@@ -115,7 +115,7 @@ enum user_keycodes {
 // window management
 #define L_MON_L SGUI(KC_LEFT)
 #define L_MON_D SGUI(KC_DOWN)
-#define L_MON_U LGUI(KC_UP)
+#define L_MON_U SGUI(KC_UP)
 #define L_MON_R SGUI(KC_RIGHT)
 #define M_MON_L LCAG(KC_LEFT)
 #define M_MON_D XXXXXXX
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *    Tap for ( ---│SHIFT│  Z  │  X  │  C  │  V  │  B  │ END │ MUT │PGDN │  N  │  M  │  ,  │  .  │  /  │SHIFT│--- Tap for )
    *                 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                 │LEADR│SUPER│ ALT │ CTL │LOWER│  ␣  │VOL -│  ▶  │VOL +│  ⌫  │RAISE│ HYP │LEADR│ PTT │ MET │
+   *                 │LEADR│SUPER│ ALT │ CTL │LOWER│  ␣  │VOL -│  ▶  │VOL +│  ⌫  │RAISE│ HYP │ MEH │ PTT │ MET │
    *                 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
    *                          |           |     |                                   |     |     |
    *                          |           |  Tap for -                         Tap for =  |     |
