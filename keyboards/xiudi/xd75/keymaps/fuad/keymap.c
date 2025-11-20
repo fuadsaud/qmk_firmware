@@ -86,8 +86,8 @@ enum user_keycodes {
 
 #define G_BACK LALT(KC_LEFT)
 #define G_FRWD LALT(KC_RIGHT)
-#define M_BACK LCMD(KC_LEFT)
-#define M_FRWD LCMD(KC_RIGHT)
+#define M_BACK LCMD(KC_LEFT_BRACKET)
+#define M_FRWD LCMD(KC_RIGHT_BRACKET)
 
 #define G_GLEFT LCTL(LSFT(KC_TAB))
 #define G_GRIGH LCTL(KC_TAB)
@@ -96,7 +96,7 @@ enum user_keycodes {
 
 #define G_LOCK LGUI(KC_L)
 #define I_LOCK LGUI(KC_BACKSLASH)
-#define M_LOCK LCTL(LSFT(KC_SYSTEM_POWER))
+#define M_LOCK LCMD(LCTL(KC_Q))
 
 #define G_VOLD KC_AUDIO_VOL_DOWN
 #define G_VOLU KC_AUDIO_VOL_UP
@@ -117,7 +117,7 @@ enum user_keycodes {
 
 #define G_PTT LGUI(KC_BACKSLASH)
 #define I_PTT KC_F20
-#define M_PTT ___x___
+#define M_PTT KC_RCMD
 
 // diacritics
 #define G_GRAVE RALT(KC_GRAVE)
@@ -223,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                              ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *                              │LEADR│LNCHR│  ⌥  │  ⌘  │LOWER│  ␣  │VOL -│  ▶  │VOL +│  ⌫  │RAISE│ HYP │ MEH │ PTT │ MET │
    *                              └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
-   *                                                   |     |                                   |     |     |
+   *                                                   | )    |                                   |     |     |
    *                                                   |  Tap for -                         Tap for =  |     |
    *                                                   |                                               |     |
    *                                              Tap for [                                       Tap for ]  |
@@ -331,7 +331,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_LOWER_MACOS] = {
     { _______ , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , _______ , _______ , _______ , KC_F6   , KC_F7   , KC_F8   , KC_F9   , KC_F10  , _______ },
     { KC_TILD , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , _______ , _______ , _______ , KC_CIRC , KC_AMPR , KC_ASTR , KC_LPRN , KC_RPRN , _______ },
-    { _______ , G_GRAVE , G_CIRCU , G_CEDIL , G_ACUTE , G_TILDE , M_GLEFT , _______ , M_GRIGH , _______ , KC_LCBR , KC_RCBR , _______ , KC_PIPE , _______ },
+    { _______ , M_GRAVE , M_CIRCU , M_CEDIL , M_ACUTE , M_TILDE , M_GLEFT , _______ , M_GRIGH , _______ , KC_LCBR , KC_RCBR , _______ , KC_PIPE , _______ },
     { _______ , _______ , _______ , _______ , X_PMAIL , X_WMAIL , M_BACK  , _______ , _______ , _______ , KC_LPRN , KC_RPRN , _______ , KC_BSLS , _______ },
     { _______ , _______ , _______ , _______ , _______ , _______ , M_MPRV  , _______ , M_MNXT  , KC_DEL  , _______ , _______ , _______ , _______ , _______ },
   },
@@ -446,23 +446,23 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     case LAYER_QWERTY_GNOME:
     case LAYER_QWERTY_I3:
     case LAYER_QWERTY_MACOS:
-        rgblight_setrgb (0x4D,  0x19, 0x83);
+        /* rgblight_setrgb (0x4D,  0x19, 0x83); */
         break;
     case LAYER_LOWER_GNOME:
     case LAYER_LOWER_I3:
     case LAYER_LOWER_MACOS:
-        rgblight_setrgb (0x00,  0x8F, 0x60);
+        /* rgblight_setrgb (0x00,  0x8F, 0x60); */
         break;
     case LAYER_RAISE_GNOME:
     case LAYER_RAISE_I3:
     case LAYER_RAISE_MACOS:
-        rgblight_setrgb (0xF0,  0x78, 0x46);
+        /* rgblight_setrgb (0xF0,  0x78, 0x46); */
         break;
     case LAYER_META:
-        rgblight_setrgb (0xFF,  0x00, 0x00);
+        /* rgblight_setrgb (0xFF,  0x00, 0x00); */
         break;
     default: //  for any other layers, or the default layer
-        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        /* rgblight_setrgb (0x00,  0xFF, 0xFF); */
         break;
     }
   return state;
